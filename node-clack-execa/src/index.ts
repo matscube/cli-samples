@@ -1,5 +1,4 @@
-import { intro, outro, spinner } from '@clack/prompts';
-import { execa } from 'execa';
+import { intro, outro, spinner, text } from '@clack/prompts';
 
 async function main() {
   intro(`create-my-app`);
@@ -21,17 +20,26 @@ async function main() {
   //   stdin: 'inherit',
   // })`git push`;
 
-  const { stdout, stderr } = await execa({
-    stdout: ['inherit', 'pipe'],
-    stderr: ['inherit', 'pipe'],
-    stdin: 'inherit',
-  })`ssh-keygen -f ./test-key`;
+  // const { stdout, stderr } = await execa({
+  //   stdout: ['inherit', 'pipe'],
+  //   stderr: ['inherit', 'pipe'],
+  //   stdin: 'inherit',
+  // })`ssh-keygen -f ./test-key`;
 
   pushSpinner.stop('Finished running command');
 
+  const meaning = await text({
+    message: 'What is the meaning of life?',
+    placeholder: 'Not sure',
+    initialValue: '42',
+    validate(value) {
+      if (value.length === 0) return `Value is required!`;
+    },
+  });
+
   outro(`You're all set!`);
 
-  console.log({ stdout, stderr });
+  // console.log({ stdout, stderr });
 }
 
 main();
