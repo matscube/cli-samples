@@ -1,8 +1,11 @@
-import { intro, outro } from '@clack/prompts';
+import { intro, outro, spinner } from '@clack/prompts';
 import { execa } from 'execa';
 
 async function main() {
   intro(`create-my-app`);
+
+  const pushSpinner = spinner();
+  pushSpinner.start(`Running command...`);
 
   /**
    * Between intro and outro, console.log is not output
@@ -12,17 +15,19 @@ async function main() {
    *
    * If stdin is set, you can pass the value you entered to the child process of execa command
    */
-  const { stdout, stderr } = await execa({
-    stdout: ['inherit', 'pipe'],
-    stderr: ['inherit', 'pipe'],
-    stdin: 'inherit',
-  })`git push`;
-
   // const { stdout, stderr } = await execa({
   //   stdout: ['inherit', 'pipe'],
   //   stderr: ['inherit', 'pipe'],
   //   stdin: 'inherit',
-  // })`ssh-keygen -f ./test-key`;
+  // })`git push`;
+
+  const { stdout, stderr } = await execa({
+    stdout: ['inherit', 'pipe'],
+    stderr: ['inherit', 'pipe'],
+    stdin: 'inherit',
+  })`ssh-keygen -f ./test-key`;
+
+  pushSpinner.stop('Finished running command');
 
   outro(`You're all set!`);
 
