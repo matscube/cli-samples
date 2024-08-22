@@ -16,7 +16,13 @@ async function main() {
     stdout: ['inherit', 'pipe'],
     stderr: ['inherit', 'pipe'],
     stdin: 'inherit',
-  })`ssh-keygen -f ./test-key`;
+  })`git push`;
+
+  // const { stdout, stderr } = await execa({
+  //   stdout: ['inherit', 'pipe'],
+  //   stderr: ['inherit', 'pipe'],
+  //   stdin: 'inherit',
+  // })`ssh-keygen -f ./test-key`;
 
   outro(`You're all set!`);
 
