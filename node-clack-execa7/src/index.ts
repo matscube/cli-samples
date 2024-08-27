@@ -4,7 +4,8 @@ import { execa } from 'execa';
 async function main() {
   intro(`create-my-app`);
 
-  const { stdout, stderr } = await execa('ssh-keygen', ['-f ./test-key']);
+  // TODO: fix this
+  const { stdout, stderr } = await execa('ssh-keygen', ['-f ./test-key']); // NG
   // const { stdout, stderr } = await execa('ls', ['-la']); // OK
   // const { stdout, stderr } = await execa('ls -la'); // NG
 
